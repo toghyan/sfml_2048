@@ -18,8 +18,14 @@ int BoardManagement::GetRandomPosition(int size)
     return position;
 }
 
-bool BoardManagement::ThereIsZeroEntry() const
+bool BoardManagement::IsThereZero() const
 {
+    for (const auto& row : board_) {
+        for (int value : row){
+            if (value == 0)
+                return true;
+        }
+    }
     return false;
 }
 

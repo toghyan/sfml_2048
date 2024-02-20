@@ -23,11 +23,13 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+# Libarries.
 add_library(board src/board.cpp)
 target_link_libraries(board PRIVATE board_management)
 
 add_library(board_management src/board_management.cpp)
 
+# Main binary.
 add_executable(2048 src/main.cpp)
 target_link_libraries(2048 PRIVATE sfml-graphics board)
 target_compile_features(2048 PRIVATE cxx_std_17)
@@ -43,7 +45,7 @@ target_compile_features(board_test PRIVATE cxx_std_17)
 include(GoogleTest)
 gtest_discover_tests(board_test)
 
-# Unit test for board library
+# Unit test for board_management library
 add_executable(board_management_test test/board_management_test.cpp)
 target_link_libraries(board_management_test PRIVATE board_management gtest_main)
 target_compile_features(board_management_test PRIVATE cxx_std_17)

@@ -32,7 +32,7 @@ public:
      * @brief checks if any of the elements are zero.
      * @return true if any of the elements are zero, otherwise false.
     */
-    bool ThereIsZeroEntry() const;
+    bool IsThereZero() const;
 
     /**
      * @brief checks if any of the elements can be merged.
