@@ -2,7 +2,9 @@
 #define BOARD_HPP
 
 #include <vector>
-#include <gtest/gtest_prod.h>
+#include "board_management.hpp"
+
+enum class MoveCommand : int {kUp, kDown, kRight, kLeft}; 
 
 
 /**
@@ -10,43 +12,37 @@
  */  
 class Board {
 public:
-    static constexpr int board_size = 4;
-
     /**
-     * @brief Default constructor of the board class.
-     * This constructor initiallizes the board_ member variable and 
-     * sets two of its entries to 2 or 4 and the rest to zero.
+     * @brief Default constructor of the class.
      * */ 
-    Board();
+    Board(int board_size = 4) : board_management_(CreateInitialBoard(board_size), board_size){}
 
     /**
-     * @brief Getter method for the board.
+     * @brief Returns the current state of the board from BoardManagement instance.
      * @return Constant reference to the board.
     */
     const std::vector<std::vector<int>>& GetBoard() const;
 
-private:
-    // Methods
-
     /**
-     * @brief Method to generate 2 (90% chance) or 4 (10% chance).
-     * @return 2 or 4.
-     * */  
-    int GetRandomTwoOrFour() const;
-    FRIEND_TEST(BoardTest, GetRandomTwoOrFourTest);
-
-    /**
-     * @brief Method to get a random position on the board.
-     * The return value is between 0 and 15 and the index is decided by
-     * remainder to board size for column and dividend for row.
-     *  e.g. 9 -> row 2 column 1.
-     * @return a random integer between 0 and 15 (inclusive).
+     * @brief Checks if the game is finished.
+     * This method checks if there is a zero element in the board or
+     * there are two neighboring elements with the same value (which
+     * means they can be combined).
+     * @return true if the game can continue, otherwise false.
     */
-    int GetRandomPosition() const;
-    FRIEND_TEST(BoardTest, GetRandomPositionTest);
+    bool CanContinue() const;
 
+    /**
+     * @brief Updates the board based on the move command and then adds a random value.
+     * This function does not care if the board won't chnage with the given command.
+    */
+    void Move(MoveCommand move_command);
+
+
+private:
+    std::vector<std::vector<int>> CreateInitialBoard(int board_size);
     // Varibles
-    std::vector<std::vector<int>> board_;
+    BoardManagement board_management_;
 
 };
 

@@ -25,17 +25,3 @@ TEST(BoardTest, BoardInitialization) {
     // Two of the values should be 2 or 4.
     EXPECT_EQ(num_two_or_four, 2);
 }
-
-TEST(BoardTest, GetRandomTwoOrFourTest) {
-    Board board;
-    int result = board.GetRandomTwoOrFour();
-    EXPECT_TRUE (result == 2 || result == 4);
-}
-
-TEST(BoardTest, GetRandomPositionTest) {
-    Board board;
-    int result = board.GetRandomPosition();
-
-    EXPECT_LE(result, 15);
-    EXPECT_GE(result, 0);
-}

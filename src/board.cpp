@@ -1,38 +1,35 @@
-#include "board.hpp"
 #include <vector>
-#include <cstdlib>
-#include <ctime>
+#include "board.hpp"
+#include "board_management.hpp"
 
-Board::Board() : board_(board_size, std::vector<int>(board_size, 0))
-{
-     int first_position = GetRandomPosition();
-     int second_position;
-     // Make sure the second position is different.
-     do{
-        second_position = GetRandomPosition();
-     } while(first_position == second_position);
-
-    // Set it to 2 or 4.
-     board_[first_position / board_size][first_position % board_size] = GetRandomTwoOrFour();
-     board_[second_position / board_size][second_position % board_size] = GetRandomTwoOrFour();
-
-}
 
 const std::vector<std::vector<int>> &Board::GetBoard() const
 {
-    return board_;
+    return board_management_.GetBoard();
 }
 
-int Board::GetRandomTwoOrFour() const
+bool Board::CanContinue() const
 {
-    srand(time(NULL));
-    return (rand() % 10) < 9 ? 2:4;
+    return board_management_.ThereIsZeroEntry() || board_management_.MergeAvailable();
 }
 
-int Board::GetRandomPosition() const
+void Board::Move(MoveCommand move_command)
 {
-    srand(time(NULL));
-    int position = rand() % (board_size * board_size);
-    
-    return position;
+}
+
+std::vector<std::vector<int>> Board::CreateInitialBoard(int board_size)
+{
+    std::vector<std::vector<int>> board(board_size, std::vector<int>(board_size, 0));
+    int first_position = BoardManagement::GetRandomPosition(board_size * board_size);
+    int second_position;
+    // Make sure the second position is different.
+    do{
+       second_position = BoardManagement::GetRandomPosition(board_size * board_size);
+    } while(first_position == second_position);
+
+    // Set it to 2 or 4.
+    board[first_position / board_size][first_position % board_size] = BoardManagement::GetRandomTwoOrFour();
+    board[second_position / board_size][second_position % board_size] = BoardManagement::GetRandomTwoOrFour();
+
+    return board;
 }
