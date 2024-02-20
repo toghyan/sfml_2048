@@ -36,12 +36,12 @@ target_compile_features(2048 PRIVATE cxx_std_17)
 enable_testing()
 
 # Unit test for board library
-add_executable(test_board test/test_board.cpp)
-target_link_libraries(test_board PRIVATE board gtest_main)
-target_compile_features(test_board PRIVATE cxx_std_17)
+add_executable(board_test test/board_test.cpp)
+target_link_libraries(board_test PRIVATE board gtest_main)
+target_compile_features(board_test PRIVATE cxx_std_17)
 
 include(GoogleTest)
-gtest_discover_tests(test_board)
+gtest_discover_tests(board_test)
 
 # Unit test for board library
 add_executable(board_management_test test/board_management_test.cpp)
