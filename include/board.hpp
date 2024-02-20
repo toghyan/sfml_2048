@@ -2,6 +2,7 @@
 #define BOARD_HPP
 
 #include <vector>
+#include <gtest/gtest_prod.h>
 
 
 /**
@@ -32,6 +33,7 @@ private:
      * @return 2 or 4.
      * */  
     int GetRandomTwoOrFour() const;
+    FRIEND_TEST(BoardTest, GetRandomTwoOrFourTest);
 
     /**
      * @brief Method to get a random position on the board.
@@ -41,6 +43,7 @@ private:
      * @return a random integer between 0 and 15 (inclusive).
     */
     int GetRandomPosition() const;
+    FRIEND_TEST(BoardTest, GetRandomPositionTest);
 
     // Varibles
     std::vector<std::vector<int>> board_;
