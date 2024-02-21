@@ -10,7 +10,7 @@ const std::vector<std::vector<int>> &Board::GetBoard() const
 
 bool Board::CanContinue() const
 {
-    return board_management_.IsThereZero() || board_management_.MergeAvailable();
+    return board_management_.IsThereZero() || board_management_.AnyMergableNeighbors();
 }
 
 void Board::Move(MoveCommand move_command)

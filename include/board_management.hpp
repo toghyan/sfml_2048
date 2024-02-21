@@ -35,10 +35,11 @@ public:
     bool IsThereZero() const;
 
     /**
-     * @brief checks if any of the elements can be merged.
+     * @brief checks if there are two neighbors with the same non-zero value.
+     * This function helps with checking if any merge is avalible.
      * @return true if there are two non-zero neighbors with the same value, otherwise false.
     */
-    bool MergeAvailable() const;
+    bool AnyMergableNeighbors() const;
 
     /**
      * @brief Randomly, updates a zero entry to either 2 or 4.
@@ -53,6 +54,13 @@ public:
     const std::vector<std::vector<int>>& GetBoard() const;
 
 private:
+
+    /**
+     * @brief Checks if the given element has a neighbor with the same value.
+     * @return true if a neighbor with the same value exist, otherwise false.
+    */
+    bool AnyNeighborWithSameValue(int row, int col) const;
+
     int board_size_;
     std::vector<std::vector<int>> board_;
 };
