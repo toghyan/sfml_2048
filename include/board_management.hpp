@@ -61,6 +61,19 @@ private:
     */
     bool AnyNeighborWithSameValue(int row, int col) const;
 
+    /**
+     * @brief Performs a move to left.
+     * This is a helper function to implement board manipulation.
+    */
+    void MoveLeft();
+
+    /**
+     * @brief performs a move to right.
+     * This function first mirrors the board vertically, then performs a move to
+     * the left and then mirrors the board vertically again.
+    */
+    void MoveRight();
+
     int board_size_;
     std::vector<std::vector<int>> board_;
 };

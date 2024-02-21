@@ -75,3 +75,40 @@ bool BoardManagement::AnyNeighborWithSameValue(int row, int col) const
 
     return false;
 }
+
+void BoardManagement::MoveLeft()
+{
+    // First, for each row, send the zeros to the right, maintaining order.
+    for (auto row : board_) {
+        std::stable_partition(row.begin(), row.end(), [](int n) { return n != 0; });
+    }
+    // Merge identical non-zero neighbors
+    for (auto row : board_) {
+        int index = 0;
+        while(index < (board_size_ - 1) && row[index] != 0){
+            if(row[index] == row[index + 1]){
+                row[index] = 2*row[index];
+                // Remove the neighbor and add a zero to the end;
+                row.erase(row.begin() + index + 1);
+                row.push_back(0);
+            }
+            index++;
+        }
+    }
+}
+
+void BoardManagement::MoveRight()
+{
+    // Mirror the board vertically so that a left move can be performed.
+    for (auto row : board_) {
+        std::reverse(row.begin(), row.end());
+    }
+    // Perform move lef.
+    MoveLeft();
+
+    // Mirror the board vertically to go back to original orientation.
+    for (auto row : board_) {
+        std::reverse(row.begin(), row.end());
+    }
+
+}
