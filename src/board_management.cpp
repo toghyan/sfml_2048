@@ -41,6 +41,19 @@ bool BoardManagement::AnyMergableNeighbors() const
     return false;
 }
 
+void BoardManagement::AddNewEntry()
+{
+    if (!IsThereZero())
+        return;
+    
+    int position = GetRandomPosition(board_size_ * board_size_);
+    // Try until we chose a position with value zero.
+    while (board_[position / board_size_][position % board_size_] != 0)
+        position = GetRandomPosition(board_size_ * board_size_);
+
+    board_[position / board_size_][position % board_size_] = GetRandomTwoOrFour();
+}
+
 const std::vector<std::vector<int>> &BoardManagement::GetBoard() const
 {
     return board_;

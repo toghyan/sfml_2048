@@ -68,3 +68,31 @@ TEST(BoardManagementTest, AnyMergableNeighborsReturnsFalse) {
     EXPECT_FALSE(board_management.AnyMergableNeighbors());
 
 }
+
+TEST(BoardManagementTest, AddNewEntryTest) {
+    // 4 by 4 board with ones except one zero. Using ones here to check if any
+    // of the non-zero elements gets changed to 2 or 4.
+    int existing_elements_value = 1;
+    int size = 4;
+    int row_zero = 3;
+    int col_zero = 3;
+    std::vector<std::vector<int>> board(size, std::vector<int>(size, existing_elements_value));
+    board[row_zero][col_zero] = 0;
+    BoardManagement board_management(board, size);
+    board_management.AddNewEntry();
+
+    // Check if the zero changed to 2 or 4.
+    int result = board_management.GetBoard()[row_zero][col_zero];
+    EXPECT_TRUE(result == 2 || result == 4);
+
+    // Check if any of the ones changed.
+    for (int row=0; row < size; row++){
+        for (int col=0; col < size; col++){
+            if (row == row_zero && col == col_zero)
+                continue;
+            result = board_management.GetBoard()[row][col];
+            EXPECT_EQ(result, existing_elements_value);
+        }
+    }
+
+}
