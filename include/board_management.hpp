@@ -9,8 +9,8 @@ public:
     // Constructor.
     /**
      * @brief Default constructor of the class.
-     * This constructor initiallizes the board_ member variable and 
-     * sets two of its entries to 2 or 4 and the rest to zero.
+     * @param board 2D integer vector, initial state of the square board.
+     * @param board_size integer indicating the lenght of the square board.
      * */
     BoardManagement(std::vector<std::vector<int>> board, int board_size) : board_(board), board_size_(board_size) {}
     /**
@@ -24,6 +24,7 @@ public:
      * The return value is between [0, size) and the index is decided by
      * remainder to board size for column and dividend for row.
      *  e.g. 9 -> row 2 column 1.
+     * @param size integer indicating the upper limit of the random value.
      * @return a random integer between [0, size).
     */
     static int GetRandomPosition(int size);
@@ -73,6 +74,24 @@ private:
      * the left and then mirrors the board vertically again.
     */
     void MoveRight();
+
+    /**
+     * @brief Performs a downward move and updates the board.
+     * This function utilizes the board rotation helper to first transform the
+     * board 90 degrees [clockwise for down move and counter clockwise for up move].
+     * Then perfroms a move to the left. Then it rotates the board 90 degrees [counter 
+     * clockwise for down move and clockwise for up move].
+     * @param down boolean indicating a down move or an up move.
+    */
+    void MoveVertically(bool down);
+
+    /**
+     * @brief Rotates the board ninety degrees.
+     * This method is a helper function to transform the board, when an up or
+     * down move command is given, so that we can use the left move command.
+     * @param clockwise boolean indicating clockwise or counter clockwise rotation.
+    */
+    void RotateTheBoardNinetyDegrees(bool clockwise);
 
     int board_size_;
     std::vector<std::vector<int>> board_;

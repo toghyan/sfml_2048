@@ -113,3 +113,23 @@ void BoardManagement::MoveRight()
     }
 
 }
+
+void BoardManagement::MoveVertically(bool down)
+{
+    RotateTheBoardNinetyDegrees(down);
+    MoveLeft();
+    RotateTheBoardNinetyDegrees(!down);
+}
+
+void BoardManagement::RotateTheBoardNinetyDegrees(bool clockwise)
+{
+    std::vector<std::vector<int>> rotated_board(board_size_, std::vector<int>(board_size_, 0));
+    for (int row = 0; row < board_size_; row++){
+        for (int col = 0; col < board_size_; col++){
+            rotated_board[row][col] = (clockwise) ?  
+            board_[col][board_size_ - 1 - row] : board_[board_size_ - 1 - col][row];
+        }
+    }
+
+    board_ = rotated_board;
+}
