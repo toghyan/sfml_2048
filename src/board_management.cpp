@@ -43,10 +43,7 @@ bool BoardManagement::AnyMergableNeighbors() const
 }
 
 void BoardManagement::AddNewEntry()
-{
-    if (!IsThereZero())
-        return;
-    
+{   
     // Put all the open positions (row * board_size + column) in a vector.
     std::vector<int> open_positions;
     
@@ -56,6 +53,10 @@ void BoardManagement::AddNewEntry()
                 open_positions.push_back(row * board_size_+ col);
         }
     }
+
+    // If there are no open positions, do nothing.
+    if (open_positions.empty())
+        return;
 
     // Choose a random position.
     int position = open_positions[GetRandomPosition(open_positions.size())];
