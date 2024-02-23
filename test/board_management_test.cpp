@@ -1,6 +1,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "board_management.hpp"
+#include <ostream>
 
 
 TEST(BoardManagementTest, GetRandomTwoOrFourTest) {
@@ -95,4 +96,92 @@ TEST(BoardManagementTest, AddNewEntryTest) {
         }
     }
 
+}
+
+TEST(BoardManagementTest, MoveLeftWithoutChangeTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{2,0,0,0}, {4,0,0,0}, {2,4,2,0}, {4,2,0,0}};
+    BoardManagement board_management(board, size);
+
+    board_management.MoveLeft();
+
+    EXPECT_EQ(board, board_management.GetBoard());
+}
+
+TEST(BoardManagementTest, MoveLeftWithChangeTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{2,2,2,2}, {0,2,2,4}, {0,2,4,2}, {4,4,2,2}};
+    std::vector<std::vector<int>> expected = {{4,4,0,0},{4,4,0,0},{2,4,2,0},{8,4,0,0}};
+    BoardManagement board_management(board, size);
+
+    board_management.MoveLeft();
+    auto result = board_management.GetBoard();
+
+    EXPECT_EQ(expected, result);
+}
+
+TEST(BoardManagementTest, MoveRightWithoutChangeTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{0,0,0,2}, {0,0,0,4}, {0,2,4,2}, {0,0,4,2}};
+    BoardManagement board_management(board, size);
+
+    board_management.MoveRight();
+
+    EXPECT_EQ(board, board_management.GetBoard());
+}
+
+TEST(BoardManagementTest, MoveRightWitChangeTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{2,2,2,2}, {2,2,4,0}, {2,4,2,0}, {4,4,2,2}};
+    std::vector<std::vector<int>> expected = {{0,0,4,4},{0,0,4,4},{0,2,4,2},{0,0,8,4}};
+    BoardManagement board_management(board, size);
+
+    board_management.MoveRight();
+    auto result = board_management.GetBoard();
+
+    EXPECT_EQ(expected, result);
+}
+
+TEST(BoardManagementTest, MoveDownWithoutChangeTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{0,0,0,0}, {0,2,0,0}, {0,4,0,4}, {2,2,4,2}};
+    BoardManagement board_management(board, size);
+
+    board_management.MoveVertically(true);
+
+    EXPECT_EQ(board, board_management.GetBoard());
+}
+
+TEST(BoardManagementTest, MoveDownWitChangeTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{2,2,2,4}, {2,2,4,4}, {2,4,2,2}, {2,0,0,2}};
+    std::vector<std::vector<int>> expected = {{0,0,0,0},{0,0,2,0},{4,4,4,8},{4,4,2,4}};
+    BoardManagement board_management(board, size);
+
+    board_management.MoveVertically(true);
+    auto result = board_management.GetBoard();
+
+    EXPECT_EQ(expected, result);
+}
+
+TEST(BoardManagementTest, MoveUpWithoutChangeTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{2,2,4,4}, {0,4,0,2}, {0,2,0,0}, {0,0,0,0}};
+    BoardManagement board_management(board, size);
+
+    board_management.MoveVertically(false);
+
+    EXPECT_EQ(board, board_management.GetBoard());
+}
+
+TEST(BoardManagementTest, MoveUpWitChangeTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{2,0,0,4}, {2,2,2,4}, {2,2,4,2}, {0,4,2,2}};
+    std::vector<std::vector<int>> expected = {{4,4,2,8},{2,4,4,4},{0,0,2,0},{0,0,0,0}};
+    BoardManagement board_management(board, size);
+
+    board_management.MoveVertically(false);
+    auto result = board_management.GetBoard();
+
+    EXPECT_EQ(expected, result);
 }

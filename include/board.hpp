@@ -4,7 +4,8 @@
 #include <vector>
 #include "board_management.hpp"
 
-enum class MoveCommand : int {kUp, kDown, kRight, kLeft}; 
+
+enum class MoveCommand : int {kUp, kDown, kRight, kLeft};
 
 
 /**
@@ -33,8 +34,10 @@ public:
     bool CanContinue() const;
 
     /**
-     * @brief Updates the board based on the move command and then adds a random value.
-     * This function does not care if the board won't chnage with the given command.
+     * @brief Updates the board based on the move command.
+     * If the state of the board changes, a random 2 or 4 will be added at an empty position.
+     * Keep in mind that if the changes the board that means an empty spot is available.
+     * @param move_command MoveCommand enum indicating which move to perform.
     */
     void Move(MoveCommand move_command);
 

@@ -54,14 +54,6 @@ public:
     */
     const std::vector<std::vector<int>>& GetBoard() const;
 
-private:
-
-    /**
-     * @brief Checks if the given element has a neighbor with the same value.
-     * @return true if a neighbor with the same value exist, otherwise false.
-    */
-    bool AnyNeighborWithSameValue(int row, int col) const;
-
     /**
      * @brief Performs a move to left.
      * This is a helper function to implement board manipulation.
@@ -84,6 +76,14 @@ private:
      * @param down boolean indicating a down move or an up move.
     */
     void MoveVertically(bool down);
+
+private:
+
+    /**
+     * @brief Checks if the given element has a neighbor with the same value.
+     * @return true if a neighbor with the same value exist, otherwise false.
+    */
+    bool AnyNeighborWithSameValue(int row, int col) const;
 
     /**
      * @brief Rotates the board ninety degrees.

@@ -60,6 +60,7 @@ const std::vector<std::vector<int>> &BoardManagement::GetBoard() const
     return board_;
 }
 
+
 bool BoardManagement::AnyNeighborWithSameValue(int row, int col) const
 {
     const int neighbors[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -80,11 +81,11 @@ bool BoardManagement::AnyNeighborWithSameValue(int row, int col) const
 void BoardManagement::MoveLeft()
 {
     // First, for each row, send the zeros to the right, maintaining order.
-    for (auto row : board_) {
+    for (auto& row : board_) {
         std::stable_partition(row.begin(), row.end(), [](int n) { return n != 0; });
     }
     // Merge identical non-zero neighbors
-    for (auto row : board_) {
+    for (auto& row : board_) {
         int index = 0;
         while(index < (board_size_ - 1) && row[index] != 0){
             if(row[index] == row[index + 1]){
@@ -101,14 +102,14 @@ void BoardManagement::MoveLeft()
 void BoardManagement::MoveRight()
 {
     // Mirror the board vertically so that a left move can be performed.
-    for (auto row : board_) {
+    for (auto& row : board_) {
         std::reverse(row.begin(), row.end());
     }
     // Perform move lef.
     MoveLeft();
 
     // Mirror the board vertically to go back to original orientation.
-    for (auto row : board_) {
+    for (auto& row : board_) {
         std::reverse(row.begin(), row.end());
     }
 
@@ -127,7 +128,7 @@ void BoardManagement::RotateTheBoardNinetyDegrees(bool clockwise)
     for (int row = 0; row < board_size_; row++){
         for (int col = 0; col < board_size_; col++){
             rotated_board[row][col] = (clockwise) ?  
-            board_[col][board_size_ - 1 - row] : board_[board_size_ - 1 - col][row];
+            board_[board_size_ - 1 - col][row] : board_[col][board_size_ - 1 - row];
         }
     }
 
