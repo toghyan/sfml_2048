@@ -47,11 +47,20 @@ void BoardManagement::AddNewEntry()
     if (!IsThereZero())
         return;
     
-    int position = GetRandomPosition(board_size_ * board_size_);
-    // Try until we chose a position with value zero.
-    while (board_[position / board_size_][position % board_size_] != 0)
-        position = GetRandomPosition(board_size_ * board_size_);
+    // Put all the open positions (row * board_size + column) in a vector.
+    std::vector<int> open_positions;
+    
+    for (int row = 0; row < board_size_; row++){
+        for (int col = 0; col < board_size_; col++){
+            if (board_[row][col] == 0)
+                open_positions.push_back(row * board_size_+ col);
+        }
+    }
 
+    // Choose a random position.
+    int position = open_positions[GetRandomPosition(open_positions.size())];
+
+    // Set the element of the random position to 2 or 4.
     board_[position / board_size_][position % board_size_] = GetRandomTwoOrFour();
 }
 

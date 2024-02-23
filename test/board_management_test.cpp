@@ -70,7 +70,7 @@ TEST(BoardManagementTest, AnyMergableNeighborsReturnsFalse) {
 
 }
 
-TEST(BoardManagementTest, AddNewEntryTest) {
+TEST(BoardManagementTest, AddNewEntryWithOneSpotOpenTest) {
     // 4 by 4 board with ones except one zero. Using ones here to check if any
     // of the non-zero elements gets changed to 2 or 4.
     int existing_elements_value = 1;
@@ -96,6 +96,44 @@ TEST(BoardManagementTest, AddNewEntryTest) {
         }
     }
 
+}
+
+TEST(BoardManagementTest, AddNewEntryWithMultipleSpotsOpen) {
+    // A board with the first row full and the rest empty.
+    int size = 4;
+    int existing_elements_value = 1;
+    std::vector<int> first_row(size, existing_elements_value);
+    std::vector<std::vector<int>> board(size, std::vector<int>(size, 0));
+    board[0] = first_row;
+
+    BoardManagement board_management(board, size);
+    board_management.AddNewEntry();
+
+    auto result = board_management.GetBoard(); 
+    // Check that the first row didn't change.
+    EXPECT_EQ(result[0], first_row);
+
+    // Check only one new entry was added and the new entry is either 2 or 4.
+    int zero_count = 0;
+    for (int row = 1; row < size; row++){
+        for (int col = 0; col <size; col++){
+            if (result[row][col] == 0)
+                zero_count++;
+            else
+                EXPECT_TRUE(result[row][col] == 2 || result[row][col] == 4);
+        }
+    }
+
+    EXPECT_EQ(zero_count, size * (size -1) - 1);
+}
+
+TEST(BoardManagementTest, AddNewEntryNoChangeIfBoardIsFullTest) {
+    int size = 4;
+    std::vector<std::vector<int>> board = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+    BoardManagement board_management(board, size);
+    board_management.AddNewEntry();
+
+    EXPECT_EQ(board, board_management.GetBoard());
 }
 
 TEST(BoardManagementTest, MoveLeftWithoutChangeTest) {
