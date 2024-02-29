@@ -23,6 +23,8 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+
 # Libarries.
 add_library(board src/board.cpp)
 target_link_libraries(board PRIVATE board_management)
