@@ -79,6 +79,8 @@ void Game::DrawSquare(int number, sf::Vector2f position)
     square.setOrigin(element_size_/2.0f, element_size_/2.0f);
     square.setPosition(position);
     square.setFillColor(square_color_);
+    square.setOutlineThickness(border_thickness_);
+    square.setOutlineColor(border_color_);
     window_.draw(square);
 
     if (number != 0){

@@ -31,13 +31,14 @@ private:
 
     };
 
-
     const unsigned int window_length_;
     const int board_size_;
     const float element_size_;
     sf::RenderWindow window_;
     sf::Font font_;
     const sf::Color square_color_{192, 192, 192, 255};
+    const sf::Color border_color_{128,128,128,128};
+    const float border_thickness_ = -5.f;
     const sf::Color text_color_{80, 80, 80, 255};
     Board board_;
 
