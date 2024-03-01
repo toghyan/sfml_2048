@@ -3,6 +3,9 @@
 #include "board_management.hpp"
 
 
+Board::Board(int board_size) : board_management_(CreateInitialBoard(board_size), board_size) {}
+
+
 const std::vector<std::vector<int>> &Board::GetBoard() const
 {
     return board_management_.GetBoard();

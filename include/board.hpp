@@ -17,7 +17,7 @@ public:
      * @brief Default constructor of the class.
      * @param board_size integer, the length of the square board.
      * */ 
-    Board(int board_size = 4) : board_management_(CreateInitialBoard(board_size), board_size){}
+    Board(int board_size = 4);
 
     /**
      * @brief Returns the current state of the board from BoardManagement instance.

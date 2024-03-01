@@ -11,6 +11,7 @@ FetchContent_Declare(SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
     GIT_TAG 2.6.0)
 FetchContent_MakeAvailable(SFML)
+include_directories(${SFML_SOURCE_DIR}/include)
 
 # Fetch Google Test
 FetchContent_Declare(
@@ -26,6 +27,9 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # Libarries.
+add_library(game src/game.cpp)
+target_link_libraries(game PRIVATE sfml-graphics board)
+
 add_library(board src/board.cpp)
 target_link_libraries(board PRIVATE board_management)
 
@@ -33,7 +37,7 @@ add_library(board_management src/board_management.cpp)
 
 # Main binary.
 add_executable(2048 src/main.cpp)
-target_link_libraries(2048 PRIVATE sfml-graphics board)
+target_link_libraries(2048 PRIVATE game)
 target_compile_features(2048 PRIVATE cxx_std_17)
 
 # Enable testing
