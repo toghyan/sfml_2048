@@ -13,6 +13,10 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 include_directories(${SFML_SOURCE_DIR}/include)
 
+# Ensure the SFML libraries are linked
+add_library(sfml INTERFACE)
+target_link_libraries(sfml INTERFACE sfml-graphics sfml-window sfml-system)
+
 # Fetch Google Test
 FetchContent_Declare(
   googletest
@@ -28,7 +32,7 @@ file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 # Libarries.
 add_library(game src/game.cpp)
-target_link_libraries(game PRIVATE sfml-graphics board)
+target_link_libraries(game PRIVATE sfml board)
 
 add_library(board src/board.cpp)
 target_link_libraries(board PRIVATE board_management)
