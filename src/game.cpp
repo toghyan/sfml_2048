@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "board.hpp"
@@ -21,36 +22,17 @@ void Game::Run()
     {
         for (auto event = sf::Event{}; window_.pollEvent(event);)
         {
-            if (event.type == sf::Event::Closed)
-            {
+            if (event.type == sf::Event::Closed) {
                 window_.close();
-            }
-
-            if (event.type == sf::Event::KeyPressed)
-            {
-                switch (event.key.scancode){
-                    case sf::Keyboard::Scan::Left:
-                        std::cout << "Left arrow key was pressed" << std::endl;
-                        board_.Move(MoveCommand::kLeft);
-                        break;
-                    case sf::Keyboard::Scan::Right:
-                        std::cout << "Right arrow key was pressed" << std::endl;
-                        board_.Move(MoveCommand::kRight);
-                        break;
-                    case sf::Keyboard::Scan::Up:
-                        std::cout << "Up arrow key was pressed" << std::endl;
-                        board_.Move(MoveCommand::kUp);
-                        break;
-                    case sf::Keyboard::Scan::Down:
-                        std::cout << "Down arrow key was pressed" << std::endl;
-                        board_.Move(MoveCommand::kDown);
-                        break;
-                    default:
-                        std::cout << "Press Up, Down, Right, Left arrow keys." <<  std::endl;
+            } else if (event.type == sf::Event::KeyPressed) {
+                auto it = key_to_move_command_.find(event.key.scancode);
+                if (it != key_to_move_command_.end()) {
+                    board_.Move(it->second);
+                } else {
+                    std::cout << "Press Up, Down, Right, Left arrow keys." << std::endl;
                 }
             }
         }
-
         DrawBoard();
     }
 }
@@ -93,3 +75,10 @@ void Game::DrawSquare(int number, sf::Vector2f position)
         window_.draw(text);
     }
 }
+
+const std::map<sf::Keyboard::Scancode, MoveCommand> Game::key_to_move_command_ = {
+    {sf::Keyboard::Scan::Scancode::Left, MoveCommand::kLeft},
+    {sf::Keyboard::Scan::Scancode::Right, MoveCommand::kRight},
+    {sf::Keyboard::Scan::Scancode::Up, MoveCommand::kUp},
+    {sf::Keyboard::Scan::Scancode::Down, MoveCommand::kDown},
+};

@@ -31,6 +31,7 @@ private:
 
     };
 
+    static const std::map<sf::Keyboard::Scan::Scancode, MoveCommand> key_to_move_command_;
     const unsigned int window_length_;
     const int board_size_;
     const float element_size_;
@@ -43,7 +44,5 @@ private:
     Board board_;
 
 };
-
-
 
 #endif  // GAME_HPP
