@@ -8,12 +8,12 @@
 - Run the following commands to build the project
 
     ```
-        mkdir build && cd build
-        cmake ..
-        make
+    mkdir build && cd build
+    cmake ..
+    make
     ```
 - Run the binary
 
     ```
-        ./bin/2048
+    ./bin/2048
     ```
