@@ -41,7 +41,7 @@ add_library(board_management src/board_management.cpp)
 
 # Main binary.
 add_executable(2048 src/main.cpp)
-target_link_libraries(2048 PRIVATE game)
+target_link_libraries(2048 PRIVATE game sfml)
 target_compile_features(2048 PRIVATE cxx_std_17)
 
 # Enable testing
