@@ -93,7 +93,7 @@ private:
     */
     void RotateTheBoardNinetyDegrees(bool clockwise);
 
-    int board_size_;
+    const int board_size_;
     std::vector<std::vector<int>> board_;
 };
 
